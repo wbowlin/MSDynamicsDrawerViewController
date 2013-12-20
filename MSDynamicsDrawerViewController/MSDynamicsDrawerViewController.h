@@ -73,6 +73,8 @@ typedef NS_ENUM(NSInteger, MSDynamicsDrawerPaneState) {
 /// @name Managing the Child View Controllers
 ///------------------------------------------
 
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil paneViewController:(UIViewController*)paneViewController;
+
 /**
  The pane view controller is the primary view controller, displayed centered and covering the drawer view controllers.
  

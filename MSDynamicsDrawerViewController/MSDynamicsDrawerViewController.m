@@ -163,10 +163,11 @@ void MSDynamicsDrawerDirectionActionForMaskedValues(MSDynamicsDrawerDirection di
 
 #pragma mark - UIViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil paneViewController:(UIViewController*)paneViewController
 {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
 		[self initialize];
+        _paneViewController = paneViewController;
     }
     return self;
 }
@@ -192,6 +193,12 @@ void MSDynamicsDrawerDirectionActionForMaskedValues(MSDynamicsDrawerDirection di
     self.paneGravityBehavior.action = ^{
         [weakSelf didUpdateDynamicAnimatorAction];
     };
+    
+    if (self.paneViewController && !self.paneViewController.parentViewController) {
+        [self replaceViewController:nil withViewController:self.paneViewController inContainerView:self.paneView completion:^{
+            [self setNeedsStatusBarAppearanceUpdate];
+        }];
+    }
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
